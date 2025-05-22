@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Aevera E-commerce</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>    <header>        <a href="index.html" class="logo">aevera</a>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop.html" class="active">SHOP</a></li>
+                <li><a href="account.html">ACCOUNT</a></li>
+                <li><a href="blog.html">OTHER PAGES</a></li>
+            </ul>
+        </nav>
+        <hr class="dashed">
+        <hr class="solid">
+    </header><main class="product-detail">
+        <div class="product-image-large">
+            <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/475380/sub/goods_475380_sub14_3x4.jpg?width=423" alt="" class="product-img">
+        </div>        <div class="product-info" data-product-id="">
+            <h1 class="product-name"></h1>
+            <p class="product-price"></p>
+            <div class="product-description">
+                <p></p>
+            </div>
+            
+            <div class="product-options">
+                <div class="color-options">
+                    <h2>SELECT COLOR</h2>
+                    <div class="color-swatches">
+                        <button class="color-swatch" style="background-color: black;" onclick="selectColor(this)"></button>
+                        <button class="color-swatch" style="background-color: #eef1e8;" onclick="selectColor(this)"></button>
+                         <button class="color-swatch" style="background-color: #0799d3;" onclick="selectColor(this)"></button>
+                    </div>
+                </div>
+
+                <div class="size-options">
+                    <h2>SELECT SIZE</h2>
+                    <div class="size-buttons">
+                        <button class="size-button" data-size="S" onclick="selectProduct(this, 'S')">S</button>
+                        <button class="size-button" data-size="M" onclick="selectProduct(this, 'M')">M</button>
+                        <button class="size-button" data-size="L" onclick="selectProduct(this, 'L')">L</button>
+                        <button class="size-button" data-size="XL" onclick="selectProduct(this, 'XL')">XL</button>
+                    </div>
+                </div>                <div class="quantity-selector">
+                    <h2>QUANTITY</h2>
+                    <div class="quantity-controls">
+                        <button onclick="updateQuantity('decrease')">-</button>
+                        <span id="quantity">1</span>
+                        <button onclick="updateQuantity('increase')">+</button>
+                    </div></div><div class="product-actions">
+                    <button class="add-to-cart">Add to cart</button>
+                    <button class="buy-now">Buy this product</button>
+                </div> 
+            </div>
+                   
+    </main><footer>
+        <p>Copyright © 2025 aevera all rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Function to load product details based on ID from URL
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the product ID from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (productId) {
+                // Define product data mapping - this should match your product IDs from home page
+                const productData = {
+                    'top1': {
+                        name: 'Boxy Fit Overshirt',
+                        price: 'PHP 2,400.00',
+                        description: 'Boxy fit overshirt. Featuring a lapel collar, long sleeves with buttoned cuffs, hip patch pockets and a button-up front.',
+                        imageUrl: 'https://static.zara.net/assets/public/1b35/2fb0/afd94618ba5e/3ba60a336632/07484553800-e1/07484553800-e1.jpg?ts=1737714777227&w=563'
+                    },
+                    'top2': {
+                        name: 'Paint Splatter Jacket',
+                        price: 'PHP 6,000.00',
+                        description: 'Relaxed fit jacket crafted from cotton canvas. Featuring a collared neckline, long sleeves with buttoned cuffs, front patch pockets, an all-over splatter effect and front button fastening.',
+                        imageUrl: 'https://static.zara.net/assets/public/7e44/61cc/e0ee431c85be/3809c21bcff2/08527207400-e1/08527207400-e1.jpg?ts=1738916400567&w=563'
+                    },
+                    'top3': {
+                        name: 'Topstitched Denim Jacket',
+                        price: 'PHP 6,000.00',
+                        description: 'Relaxed fit denim jacket made of unwashed cotton denim. This gives it a stiff appearance on first wear, which will soften over time with use. Contrast shirt collar and long sleeves with elasticated cuffs.',
+                        imageUrl: 'https://static.zara.net/assets/public/8656/28dd/132f4b148b6f/ebd5cafd030b/04048491405-e1/04048491405-e1.jpg?ts=1737707196821&w=563'
+                    },
+                    'top4': {
+                        name: 'Textured Jacquard T-Shirt',
+                        price: 'PHP 1,490.00',
+                        description: 'Relaxed fit T-shirt with a round neck and short sleeves.',
+                        imageUrl: 'https://static.zara.net/assets/public/133a/89d9/eba74931b060/b3520d66d6cd/04087400502-e1/04087400502-e1.jpg?ts=1737028983919&w=563'
+                    }
+                };
+                
+                // Check if product exists in our data
+                if (productData[productId]) {
+                    const product = productData[productId];
+                    
+                    // Update DOM with product details
+                    document.querySelector('.product-name').textContent = product.name;
+                    document.querySelector('.product-price').textContent = product.price;
+                    document.querySelector('.product-description p').textContent = product.description;
+                    document.querySelector('.product-img').src = product.imageUrl;
+                    document.querySelector('.product-info').dataset.productId = productId;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

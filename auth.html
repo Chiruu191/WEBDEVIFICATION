@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Aevera</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .auth-forms {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        
+        .auth-form h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #000;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            background-color: #fafafa;
+        }
+        
+        .form-group input:focus {
+            border-color: #000;
+            outline: none;
+        }
+        
+        .form-actions {
+            margin-top: 30px;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-submit:hover {
+            background-color: #333;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .form-footer a {
+            color: #000;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .error-message {
+            color: #e53935;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .address-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .address-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* Add a subtle animation for form transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .auth-form {
+            animation: fadeIn 0.4s ease-out;
+        }
+    </style>
+</head>
+<body>    <header>        <a href="index.html" class="logo">aevera</a>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="account.html" class="active">ACCOUNT</a></li>
+                <li><a href="blog.html">OTHER PAGES</a></li>
+            </ul>
+        </nav>
+        <hr class="dashed">
+        <hr class="solid">
+    </header>
+
+    <main class="auth-container">
+        <div class="auth-forms">            <!-- Login Form -->
+            <form id="loginForm" class="auth-form" method="POST" action="#">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="login-email">Email Address *</label>
+                    <input type="email" id="login-email" name="email" placeholder="e.g., ada@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password *</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Log In</button>
+                </div>
+                <div class="form-footer">
+                    <p>Need an account? <a href="#" id="showSignup">Sign Up</a></p>
+                </div>
+                <div id="login-error" class="error-message"></div>
+            </form>
+
+            <!-- Sign Up Form (Initially Hidden) -->
+            <form id="signupForm" class="auth-form hidden" method="POST" action="#">
+                <h2>Create Account</h2>
+                <div class="form-group">
+                    <label for="signup-name">Full Name *</label>
+                    <input type="text" id="signup-name" name="name" placeholder="e.g., Ada Lovelace" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address *</label>
+                    <input type="email" id="signup-email" name="email" placeholder="e.g., ada@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number *</label>
+                    <input type="tel" id="signup-phone" name="phone" placeholder="e.g., +639560456878" required>
+                </div>
+                <div class="address-section">
+                    <h3>Address Information</h3>
+                    <div class="form-group">
+                        <label for="signup-street">Street Address *</label>
+                        <input type="text" id="signup-street" name="street_address" placeholder="e.g., 123 Innovation Drive" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signup-city">City *</label>
+                            <input type="text" id="signup-city" name="city" placeholder="e.g., London" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-state">State/Province *</label>
+                            <input type="text" id="signup-state" name="state" placeholder="e.g., California or Ontario" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signup-postal">Postal Code *</label>
+                            <input type="text" id="signup-postal" name="postal_code" placeholder="e.g., 94043 or SW1A 0AA" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-country">Country *</label>
+                            <input type="text" id="signup-country" name="country" placeholder="e.g., United States" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password *</label>
+                    <input type="password" id="signup-password" name="password" placeholder="Create a strong password" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password *</label>
+                    <input type="password" id="signup-confirm-password" name="confirm_password" placeholder="Re-enter your password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Sign Up</button>
+                </div>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="showLogin">Log In</a></p>
+                </div>
+                <div id="signup-error" class="error-message"></div>
+            </form>
+        </div>
+    </main>    <footer>
+        <p>Copyright © 2025 aevera all rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Toggle between login and signup forms
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const showSignupLink = document.getElementById('showSignup');
+            const showLoginLink = document.getElementById('showLogin');
+            
+            // Show signup form and hide login form
+            showSignupLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+            });
+            
+            // Show login form and hide signup form
+            showLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            });
+            
+            // Basic form validation example
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                if (email && password) {
+                    // In a real application, you would send this data to your server
+                    console.log('Login form submitted');
+                    // Redirect to account page or dashboard
+                    window.location.href = 'account.html';
+                } else {
+                    document.getElementById('login-error').textContent = 'Please fill in all required fields.';
+                }
+            });
+            
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('signup-error').textContent = 'Passwords do not match.';
+                    return;
+                }
+                
+                // In a real application, you would validate and send this data to your server
+                console.log('Signup form submitted');
+                // Redirect to account page or dashboard
+                window.location.href = 'account.html';
+            });
+        });
+    </script>
+</body>
+</html>
